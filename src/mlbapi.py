@@ -1,6 +1,5 @@
 """
 Yash Patel
-HW3
 mlbapi.py: API backend
 """
 
@@ -14,7 +13,6 @@ class MLBAPI:
 
     def _clean_data(self):
         """standardize column names and replace nulls with 0 (0th percentile)"""
-        
         self.df = self.df.rename({col: col.lower().strip().replace(' ','_') for col in self.df.columns})
         self.df = self.df.fill_null(0)
 
