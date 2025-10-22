@@ -19,12 +19,20 @@ metric_cols = api.get_metrics()
 metric_select = pn.widgets.Select(name='Metric', options=metric_cols, value=metric_cols[0])
 min_slider = pn.widgets.FloatSlider(name='Minimum Percentile', start=0, end=100, step=1, value=50)
 
+
 # callback functions
 def make_table(metric, min_val):
     try:
         filtered = api.filter_players(metric, min_val)
     except ValueError as e:
         return pn.pane.Markdown('No players match the filter criteria.', style={'color': 'red'})
+    
+def make_parallel_plot(metric, min_val):
+    return
+
+def make_spider_plot(metric, min_val):
+    return
+
 
 # callback bindings
 table_panel = pn.bind(make_table, metric_select, min_slider)
