@@ -6,7 +6,7 @@ Dataset: https://baseballsavant.mlb.com/leaderboard/percentile-rankings?type=bat
 
 import panel as pn
 import plotly.express as px
-from mlbapi import MLBAPI
+from mlb_api import MLBAPI
 
 pn.extension(theme='dark')
 api = MLBAPI('percentile_rankings.csv')
