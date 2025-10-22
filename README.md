@@ -5,22 +5,22 @@
 - An interactive dashboard to explore player-level hitter percentile summaries
 
 ## Dataset
-Dataset: https://baseballsavant.mlb.com/leaderboard/percentile-rankings?type=batter&year=2025&team=&sort=1&sortDir=desc
-Fields included: xwoba, xba, xslg, xiso, xobp, brl, brl_percent, exit_velocity, max_ev, hard_hit_percent, k_percent, bb_percent, whiff_percent, chase_percent, arm_strength, sprint_speed, oaa, bat_speed, squared_up_rate, swing_length
+- Dataset: https://baseballsavant.mlb.com/leaderboard/percentile-rankings?type=batter&year=2025&team=&sort=1&sortDir=desc
+- Fields included: xwoba, xba, xslg, xiso, xobp, brl, brl_percent, exit_velocity, max_ev, hard_hit_percent, k_percent, bb_percent, whiff_percent, chase_percent, arm_strength, sprint_speed, oaa, bat_speed, squared_up_rate, swing_length
 
 ## Dashbaord Visualizations
 ### 1. Parallel Coordinates Plot
-- Purpose: Compare multiple offensive skills at once.
+- Purpose: Compare multiple offensive skills at once
 - Metrics: exit_velocity (raw contact quality), k_percent (contact consistency), bb_percent (plate discipline)
 - Insight: Shows how hitters balance power, contact, and discipline. Helps identify well-rounded hitters versus specialists (e.g., high-power sluggers with low discipline).
 
 ### 2. Swing Mechanics Spider Plot
-- Purpose: Visualize the mechanical profile of hitters.
+- Purpose: Visualize the mechanical profile of hitters
 - Metrics: bat_speed, swing_length, squared_up_rate
 - Insight: Reveals swing style differences: short, efficient swings vs. long, powerful swings. Useful for spotting players’ mechanical strengths and potential areas for adjustment.
 
 ## Key libraries (backend and dashboard)
-- Python 3.8+ (recommended)
+- Python 3.8+
 - pandas — data loading & manipulation
 - plotly — plotting library used by the dashboard
 - panel — interactive dashboard framework
