@@ -29,7 +29,7 @@ class MLBAPI:
         """list of percentile metrics used for visualizations"""
         exclude_cols = {'player_name', 'player_id', 'year'}    
         metrics = [col for col in self.df.columns if col not in exclude_cols]
-        return metrics.to_pandas()
+        return metrics
     
     def filter_players(self, metric, min_val=50):
         """filter for players in the percentile for a specific metric above the min_val"""
@@ -39,7 +39,7 @@ class MLBAPI:
         else:
             raise ValueError(f'{metric} is not a valid field in the dataset.')
 
-        return filtered.to_pandas()
+        return filtered
     
 
 if __name__ == '__main__':

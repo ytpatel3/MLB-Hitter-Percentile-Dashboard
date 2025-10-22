@@ -25,7 +25,19 @@ def make_table(metric, min_val):
     try:
         filtered = api.filter_players(metric, min_val)
     except ValueError as e:
+        return pn.pane.Markdown(f'{str(e)}', style={'color': 'red'})
+    
+    if filtered.empty:
         return pn.pane.Markdown('No players match the filter criteria.', style={'color': 'red'})
+    
+    table = pn.widgets.Tabulator(
+        filtered[[player_col, metric]].sort_values(player_col, ascending=True),
+        show_index=False, 
+        pagination='remote',
+        page_size=10, 
+        sizing_mode='stretch_width'
+    )
+    return table
     
 def make_parallel_plot(metric, min_val):
     return
