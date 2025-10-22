@@ -40,7 +40,30 @@ def make_table(metric, min_val):
     return table
     
 def make_parallel_plot(metric, min_val):
-    return
+    try: 
+        filtered = api.filter_players(metric, min_val)
+    except ValueError as e:
+        return pn.pane.Markdown(f'{str(e)}', style={'color': 'red'})
+    
+    if filtered.empty:
+        return pn.pane.Markdown('No players match the filter criteria.', style={'color': 'red'})
+    
+    # Dimensions:
+    # 1. exit_velo --> Raw Contact Quality
+    # 2. k_percent --> Contact Consistency
+    # 3. bb_percent --> Plate Discipline
+    # A good metric filter for this plot would be xwOBA. 
+    
+    fig = px.parallel_coordinates(
+        filtered,
+        dimensions=['exit_velocity', 'k_percent', 'bb_percent'],
+        color=metric, 
+        color_continuous_scale=px.colors.diverging.RdBu,
+        title=f'Parallel Coordinates of Hitter Stat Percentiles (Filtered by {metric} ≥ {min_val})'
+    )
+    fig.update_layout(showlegend=True)
+
+    return pn.pane.Plotly(fig, config={'displayModeBar': False})
 
 def make_spider_plot(metric, min_val):
     return
