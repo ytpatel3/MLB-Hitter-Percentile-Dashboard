@@ -43,4 +43,4 @@ class MLBAPI:
     
 
 if __name__ == '__main__':
-    MLBAPI('percentile_rankings.csv')
+    MLBAPI('data/percentile_rankings.csv')

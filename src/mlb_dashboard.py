@@ -9,7 +9,7 @@ import plotly.express as px
 from mlb_api import MLBAPI
 
 pn.extension(theme='dark')
-api = MLBAPI('percentile_rankings.csv')
+api = MLBAPI('data/percentile_rankings.csv')
 
 df = api.get_df()
 player_col = api.get_player_name()
