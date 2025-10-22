@@ -66,11 +66,50 @@ def make_parallel_plot(metric, min_val):
     return pn.pane.Plotly(fig, config={'displayModeBar': False})
 
 def make_spider_plot(metric, min_val):
-    return
+    try: 
+        filtered = api.filter_players(metric, min_val)
+    except ValueError as e:
+        return pn.pane.Markdown(f'{str(e)}', style={'color': 'red'})
+    
+    if filtered.empty:
+        return pn.pane.Markdown('No players match the filter criteria', style={'color': 'red'})
+    
+    # Dimensions:
+    # 1. bat_speed —-> how fast the bat moves
+    # 2. swing_length —-> how long/compact the swing is
+    # 3. squared_up_rate —-> how often the hitter makes pure contact
+    # Insights:
+    # Shows the mechanical identity of a hitter — for example,
+    # · short, efficient swing guys (high squared_up, low swing_length, moderate bat_speed)
+    # · long, explosive swing sluggers (high bat_speed, high swing_length, variable squared_up)
+    
+    melted = filtered.melt(id_vars=player_col, value_vars=['bat_speed','swing_length','squared_up_rate'], var_name='Metric', value_name='Percentile')
+    fig = px.line_polar(
+        melted, 
+        r='Percentile',
+        theta='Metric',
+        color=player_col,
+        line_close=True,
+        title=f'Swing Mechanics Spider Plot (Filtered by {metric} ≥ {min_val})',
+        color_discrete_sequence=px.colors.qualitative.Set2
+    )
+    
+    fig.update_traces(fill='toself', opacity=0.6)
+    fig.update_layout(
+        polar=dict(
+            radialaxis=dict(range=[0,100], tickvals=[0,25,50,75,100])
+        ),
+        showlegend = True
+    )
+
+    return pn.pane.Plotly(fig, config={'displayModeBar': False})
+
 
 
 # callback bindings
 table_panel = pn.bind(make_table, metric_select, min_slider)
+parallel_panel = pn.bind(make_parallel_plot, metric_select, min_slider)
+spider_panel = pn.bind(make_spider_plot, metric_select, min_slider)
 
 # dashboard layout
 controls = pn.WidgetBox(
@@ -85,6 +124,10 @@ controls = pn.WidgetBox(
 content = pn.Column(
     '## Relevant Players',
     table_panel,
+    pn.layout.Divider(),
+    parallel_panel,
+    pn.layout.Divider(),
+    spider_panel,
     pn.layout.Divider()
 )
 
