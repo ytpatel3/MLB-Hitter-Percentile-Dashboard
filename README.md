@@ -2,7 +2,7 @@
 
 ## What this project contains
 - A reproducible backend that ingests hitter stat percentile data
-- An interactive dashboard to explore player-level hitter percentile summarie.
+- An interactive dashboard to explore player-level hitter percentile summaries
 
 ## Dataset
 Dataset: https://baseballsavant.mlb.com/leaderboard/percentile-rankings?type=batter&year=2025&team=&sort=1&sortDir=desc
